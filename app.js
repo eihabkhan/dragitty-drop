@@ -43,7 +43,70 @@ function createList() {
             draggableList.appendChild(listItem)
         });
 
+        addListeners();
+
+}
+
+function addListeners() {
+    const draggables = document.querySelectorAll(".draggable")
+    const draggableItems = document.querySelectorAll(".draggable-list li")
+
+    draggables.forEach(draggable => draggable.addEventListener("dragstart", dragStart))
+    draggableItems.forEach(item => {
+        item.addEventListener("dragover", dragOver)
+        item.addEventListener("drop", dragDrop)
+        item.addEventListener("dragenter", dragEnter)
+        item.addEventListener("dragleave", dragLeave)
+    })
 }
 
 
+function dragStart() {
+    dragStartIndex = +this.closest("li").getAttribute("data-index")
+    console.log(dragStartIndex);
+}
+
+function dragOver(e) {
+    e.preventDefault()
+}
+
+function dragDrop() {
+    const dragEndIndex = +this.getAttribute("data-index")
+    swapItems(dragStartIndex, dragEndIndex)
+
+    this.classList.remove("over")
+}
+
+function dragEnter() {
+    this.classList.add("over")
+}
+
+function dragLeave() {
+    this.classList.remove("over")
+}
+
+function swapItems(startIndex, endIndex) {
+    const item1 = listItems[endIndex].querySelector(".draggable");
+    const item2 = listItems[startIndex].querySelector(".draggable");
+
+    listItems[startIndex].appendChild(item1)
+    listItems[endIndex].appendChild(item2)
+
+}
+
+function checkOrder() {
+    listItems.forEach((item, index) => {
+        const personName = item.querySelector(".draggable").innerText.trim();
+
+        if(personName != fastestCars[index]) {
+            item.classList.add("wrong")
+        } else {
+            item.classList.remove("wrong")
+            item.classList.add("right")
+        }
+    });
+}
+
 createList();
+
+checkBtn.addEventListener("click", checkOrder);
