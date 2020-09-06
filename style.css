@@ -1,9 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
+:root {
+  --border-color: #e3e5e4;
+  --background-color: #c3c7ca;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.draggable-list {
+  border: 1px solid var(--border-color);
+  color: #34444f;
+  padding: 0;
+  list-style-type: none;
+}
+
+.draggable-list li {
+  background-color: #fff;
+  display: flex;
+  flex: 1;
+}
+
+.draggable-list li:not(:last-of-type) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.draggable-list .number {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  height: 60px;
+  width: 60px;
+}
+
+.draggable-list .car-name {
+  margin: 0 1.25rem 0 0;
+}
+
+.draggable-list li.over .draggable {
+  background-color: #eaeaea;
+}
+
+.draggable-list li.right .car-name {
+  color: #3ae374;
+}
+.draggable-list li.wrong .car-name {
+  color: #ff3838;
+}
+
+.draggable-list .draggable {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  flex: 1;
+}
+
+.check-btn {
+  background-color: var(--background-color);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+.check-btn:active {
+  transform: scale(0.9);
+}
+
+.check-btn:focus {
+  outline: none;
 }
